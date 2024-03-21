@@ -75,6 +75,11 @@ class Program
         return RATING_MAPPING.TryGetValue(ratingCode, out string rating) ? rating : "OBS";
     }
 
+    static string GetRdmode(string ratingCode)
+    {
+        return RADARMODE_MAPPING.TryGetValue(ratingCode, out string rating) ? rating : "Easy";
+    }
+
     static void AppendUserInfo(string filePath, string realName, string cid, string rating, string password, string server)
     {
         try
@@ -187,10 +192,11 @@ class Program
 
             string server = GetServerName(serverCode);
             string rating = GetRating(ratingCode);
+            string RadarMode = GetRdmode(radarMode);
 
             Console.WriteLine("\n请检查下面的信息：");
             Console.WriteLine("------------------------------");
-            Console.WriteLine($"Real Name:\t{realName}\nVATSIM CID:\t{cid}\nVATSIM Rating:\t{rating}\nPassword:\t{password}\nServer:\t\t{server}\nCPDLC Code:\t{cpdlcCode}\t\nRadar Mode:\t{radarMode}\t");
+            Console.WriteLine($"Real Name:\t{realName}\nVATSIM CID:\t{cid}\nVATSIM Rating:\t{rating}\nPassword:\t{password}\nServer:\t\t{server}\nCPDLC Code:\t{cpdlcCode}\t\nRadar Mode:\t{RadarMode}\t");
             Console.WriteLine("------------------------------\n");
 
             Console.WriteLine("信息是否正确？(Y/N)");
