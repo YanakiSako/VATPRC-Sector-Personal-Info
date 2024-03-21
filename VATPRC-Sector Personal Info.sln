@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34701.34
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VATPRC-Sector Personal Info", "VATPRC-Sector Personal Info.csproj", "{9B038C3E-7F42-4EA6-A477-A8E71ED2CFB1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9B038C3E-7F42-4EA6-A477-A8E71ED2CFB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B038C3E-7F42-4EA6-A477-A8E71ED2CFB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B038C3E-7F42-4EA6-A477-A8E71ED2CFB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B038C3E-7F42-4EA6-A477-A8E71ED2CFB1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4E534988-4DEE-4A06-902D-9D99A2D01412}
+	EndGlobalSection
+EndGlobal
