@@ -37,6 +37,10 @@ class Program
         { "7", "I1" },
         { "9", "I3" }
     };
+    static readonly Dictionary<string, string> RADARMODE_MAPPING = new Dictionary<string, string> {
+        { "0", "Easy" },
+        { "1", "Mode-S" },
+    };
 
     static void RemoveLinesFromFile(string filePath, List<string> prefixes)
     {
@@ -88,64 +92,6 @@ class Program
         catch (Exception e)
         {
             Console.WriteLine($"An error occurred while updating {filePath}: {e.Message}");
-        }
-    }
-
-    static void ProcessFolder(string folderPath, List<string> prefixes)
-    {
-        Console.Title = "VATPRC-Sector Personal Info";
-        while (true)
-        {
-            Console.WriteLine("请输入你的Real Name：");
-            string realName = Console.ReadLine();
-
-            Console.WriteLine("\n请输入你的VATSIM CID：");
-            string cid = Console.ReadLine();
-
-            Console.WriteLine("\n请输入你的密码：");
-            string password = Console.ReadLine();
-
-            Console.WriteLine("\n请输入你的VATSIM Rating (OBS-'0' S1-'1' S2-'2' S3-'3' C1-'4' C3-'6' I1-'7' I3-'9')：");
-            string ratingCode = Console.ReadLine();
-
-            Console.WriteLine("\n请输入你要连接的服务器 (AUTOMATIC-'0' AMSTERDAM-'1' CANADA-'2' GERMANY-'3' GERMANY2-'4' UK-'5' USA-EAST-'6' USA-EAST2-'7' USA-WEST-'8')：");
-            string serverCode = Console.ReadLine();
-
-            string server = GetServerName(serverCode);
-            string rating = GetRating(ratingCode);
-
-            Console.WriteLine("\n请检查下面的信息：");
-            Console.WriteLine("------------------------------");
-            Console.WriteLine($"Real Name:\t{realName}\nVATSIM CID:\t{cid}\nVATSIM Rating:\t{rating}\nPassword:\t{password}\nServer:\t\t{server}");
-            Console.WriteLine("------------------------------\n");
-
-            Console.WriteLine("信息是否正确？(Y/N)");
-            string confirmation = Console.ReadLine().ToUpper();
-
-            while (confirmation != "Y" && confirmation != "N")
-            {
-                Console.WriteLine("请键入 'Y' 或 'N'");
-                confirmation = Console.ReadLine().ToUpper();
-            }
-
-            if (confirmation == "Y")
-            {
-                string[] files = Directory.GetFiles(folderPath, $"*{PRF_EXTENSION}", SearchOption.AllDirectories);
-
-                foreach (string file in files)
-                {
-                    RemoveLinesFromFile(file, prefixes);
-                    AppendUserInfo(file, realName, cid, ratingCode, password, server);
-                }
-
-                Console.WriteLine("\n！！信息已保存成功！！\n");
-                Console.WriteLine("------------------------------\n");
-                break;
-            }
-            else
-            {
-                Console.WriteLine("\n！！未保存，请重新输入！！\n");
-            }
         }
     }
 
@@ -207,21 +153,73 @@ class Program
 
     static void Main(string[] args)
     {
+        ProcessFolder(CONFIG_PREFIXES);
+    }
+
+    static void ProcessFolder(List<string> prefixes)
+    {
+        Console.Title = "VATPRC-Sector Personal Info";
         string scriptDirectory = Directory.GetCurrentDirectory();
+        while (true)
+        {
+            Console.WriteLine("请输入你的Real Name：");
+            string realName = Console.ReadLine();
 
-        ProcessFolder(scriptDirectory, CONFIG_PREFIXES);
+            Console.WriteLine("\n请输入你的VATSIM CID：");
+            string cid = Console.ReadLine();
 
-        Console.WriteLine("请输入你的Hoppie CPDLC Code：");
-        string cpdlcCode = Console.ReadLine();
-        UpdateCpdlcCode(scriptDirectory, cpdlcCode);
+            Console.WriteLine("\n请输入你的密码：");
+            string password = Console.ReadLine();
 
-        Console.WriteLine("请输入你的默认雷达模式 (0-Easy Mode, 1-Mode S)：");
-        string radarMode = Console.ReadLine();
-        UpdateRadarMode(scriptDirectory, radarMode);
+            Console.WriteLine("\n请输入你的VATSIM Rating (OBS-'0' S1-'1' S2-'2' S3-'3' C1-'4' C3-'6' I1-'7' I3-'9')：");
+            string ratingCode = Console.ReadLine();
 
-        Console.WriteLine($"\nHoppie CPDLC Code:\t{cpdlcCode}\t保存成功\n");
+            Console.WriteLine("\n请输入你要连接的服务器 (AUTOMATIC-'0' AMSTERDAM-'1' CANADA-'2' GERMANY-'3' GERMANY2-'4' UK-'5' USA-EAST-'6' USA-EAST2-'7' USA-WEST-'8')：");
+            string serverCode = Console.ReadLine();
 
-        Console.WriteLine("按任意键退出...");
-        Console.ReadKey();
+            Console.WriteLine("请输入你的Hoppie CPDLC Code：");
+            string cpdlcCode = Console.ReadLine();
+            UpdateCpdlcCode(scriptDirectory, cpdlcCode);
+
+            Console.WriteLine("请输入你的默认雷达模式 (0-Easy Mode, 1-Mode S)：");
+            string radarMode = Console.ReadLine();
+            UpdateRadarMode(scriptDirectory, radarMode);
+
+            string server = GetServerName(serverCode);
+            string rating = GetRating(ratingCode);
+
+            Console.WriteLine("\n请检查下面的信息：");
+            Console.WriteLine("------------------------------");
+            Console.WriteLine($"Real Name:\t{realName}\nVATSIM CID:\t{cid}\nVATSIM Rating:\t{rating}\nPassword:\t{password}\nServer:\t\t{server}\nCPDLC Code:\t{cpdlcCode}\t\nRadar Mode:\t{radarMode}\t");
+            Console.WriteLine("------------------------------\n");
+
+            Console.WriteLine("信息是否正确？(Y/N)");
+            string confirmation = Console.ReadLine().ToUpper();
+
+            while (confirmation != "Y" && confirmation != "N")
+            {
+                Console.WriteLine("请键入 'Y' 或 'N'");
+                confirmation = Console.ReadLine().ToUpper();
+            }
+
+            if (confirmation == "Y")
+            {
+                string[] files = Directory.GetFiles(scriptDirectory, $"*{PRF_EXTENSION}", SearchOption.AllDirectories);
+
+                foreach (string file in files)
+                {
+                    RemoveLinesFromFile(file, prefixes);
+                    AppendUserInfo(file, realName, cid, ratingCode, password, server);
+                }
+
+                Console.WriteLine("\n！！信息已保存成功！！\n");
+                Console.WriteLine("------------------------------\n");
+                break;
+            }
+            else
+            {
+                Console.WriteLine("\n！！未保存，请重新输入！！\n");
+            }
+        }
     }
 }
