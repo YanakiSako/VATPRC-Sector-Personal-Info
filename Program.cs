@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading;
 
 class Program
 {
@@ -78,6 +79,7 @@ class Program
     static string GetRdmode(string ratingCode)
     {
         return RADARMODE_MAPPING.TryGetValue(ratingCode, out string rating) ? rating : "Easy";
+        //随便定义一个
     }
 
     static void AppendUserInfo(string filePath, string realName, string cid, string rating, string password, string server)
@@ -220,6 +222,7 @@ class Program
 
                 Console.WriteLine("\n！！信息已保存成功！！\n");
                 Console.WriteLine("------------------------------\n");
+                Thread.Sleep(1000);
                 break;
             }
             else

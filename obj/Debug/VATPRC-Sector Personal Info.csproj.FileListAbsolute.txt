@@ -1,0 +1,7 @@
+C:\Users\Yuzik\source\repos\VATPRC-Sector Personal Info\bin\Debug\VATPRC-Sector Personal Info.exe.config
+C:\Users\Yuzik\source\repos\VATPRC-Sector Personal Info\bin\Debug\VATPRC-Sector Personal Info.exe
+C:\Users\Yuzik\source\repos\VATPRC-Sector Personal Info\bin\Debug\VATPRC-Sector Personal Info.pdb
+C:\Users\Yuzik\source\repos\VATPRC-Sector Personal Info\obj\Debug\VATPRC-Sector Personal Info.csproj.AssemblyReference.cache
+C:\Users\Yuzik\source\repos\VATPRC-Sector Personal Info\obj\Debug\VATPRC-Sector Personal Info.csproj.CoreCompileInputs.cache
+C:\Users\Yuzik\source\repos\VATPRC-Sector Personal Info\obj\Debug\VATPRC-Sector Personal Info.exe
+C:\Users\Yuzik\source\repos\VATPRC-Sector Personal Info\obj\Debug\VATPRC-Sector Personal Info.pdb

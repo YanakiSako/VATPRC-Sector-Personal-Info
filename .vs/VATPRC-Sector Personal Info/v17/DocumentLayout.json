@@ -1,0 +1,51 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Yuzik\\source\\repos\\VATPRC-Sector Personal Info\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{9B038C3E-7F42-4EA6-A477-A8E71ED2CFB1}|VATPRC-Sector Personal Info.csproj|c:\\users\\yuzik\\source\\repos\\vatprc-sector personal info\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9B038C3E-7F42-4EA6-A477-A8E71ED2CFB1}|VATPRC-Sector Personal Info.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{00000000-0000-0000-0000-000000000000}|\u003CSolution\u003E|VATPRC-Sector Personal Info||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "VATPRC-Sector Personal Info",
+              "DocumentMoniker": "C:\\Users\\Yuzik\\source\\repos\\VATPRC-Sector Personal Info\\VATPRC-Sector Personal Info.csproj",
+              "RelativeDocumentMoniker": "VATPRC-Sector Personal Info.csproj",
+              "ToolTip": "C:\\Users\\Yuzik\\source\\repos\\VATPRC-Sector Personal Info\\VATPRC-Sector Personal Info.csproj",
+              "RelativeToolTip": "VATPRC-Sector Personal Info.csproj",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2024-03-21T21:46:19.775Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Yuzik\\source\\repos\\VATPRC-Sector Personal Info\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Users\\Yuzik\\source\\repos\\VATPRC-Sector Personal Info\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AQIAAC0AAAAAAAAAAAAAAE4AAAArAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-21T20:56:29.995Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
