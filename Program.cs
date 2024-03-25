@@ -6,6 +6,8 @@ using System.Threading;
 class Program
 {
     static readonly string PRF_EXTENSION = ".prf";
+    static readonly string SETTINGS_FOLDER = "Common Data/Settings";
+    static readonly string TOPSKY_FOLDER = "Plugin/Topsky";
     static readonly List<string> CONFIG_PREFIXES = new List<string> {
         "LastSession\tcallsign",
         "LastSession\trealname",
@@ -38,7 +40,8 @@ class Program
         { "7", "I1" },
         { "9", "I3" }
     };
-    static readonly Dictionary<string, string> RADARMODE_MAPPING = new Dictionary<string, string> {
+
+    static readonly Dictionary<string, string> RADAR_MODE_MAPPING = new Dictionary<string, string> {
         { "0", "Easy" },
         { "1", "Mode-S" },
     };
@@ -48,7 +51,6 @@ class Program
         try
         {
             List<string> lines = new List<string>(File.ReadAllLines(filePath));
-
             using (StreamWriter file = new StreamWriter(filePath))
             {
                 foreach (string line in lines)
@@ -76,42 +78,18 @@ class Program
         return RATING_MAPPING.TryGetValue(ratingCode, out string rating) ? rating : "OBS";
     }
 
-    static string GetRdmode(string ratingCode)
+    static string GetRadarMode(string modeCode)
     {
-        return RADARMODE_MAPPING.TryGetValue(ratingCode, out string rating) ? rating : "Easy";
-        //随便定义一个
-    }
-
-    static void AppendUserInfo(string filePath, string realName, string cid, string rating, string password, string server)
-    {
-        try
-        {
-            using (StreamWriter file = File.AppendText(filePath))
-            {
-                file.WriteLine($"LastSession\trealname\t{realName}");
-                file.WriteLine($"LastSession\tcertificate\t{cid}");
-                file.WriteLine($"LastSession\trating\t{rating}");
-                file.WriteLine($"LastSession\tpassword\t{password}");
-                file.WriteLine($"LastSession\tserver\t{server}");
-                file.WriteLine("LastSession\ttovatsim\t1");
-            }
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine($"An error occurred while updating {filePath}: {e.Message}");
-        }
+        return RADAR_MODE_MAPPING.TryGetValue(modeCode, out string mode) ? mode : "Easy";
     }
 
     static void UpdateCpdlcCode(string folderPath, string cpdlcCode)
     {
         string[] airportCodes = { "PRC", "ZBPE", "ZGZU", "ZHWH", "ZJSA", "ZLHW", "ZPKM", "ZSHA", "ZWUQ", "ZYSH" };
-
         foreach (string airportCode in airportCodes)
         {
-            string airportFolder = Path.Combine(folderPath, airportCode);
-            string topskyFolder = Path.Combine(airportFolder, "Plugin", "Topsky");
+            string topskyFolder = Path.Combine(folderPath, airportCode, TOPSKY_FOLDER);
             string cpdlcFilePath = Path.Combine(topskyFolder, "TopSkyCPDLChoppieCode.txt");
-
             try
             {
                 Directory.CreateDirectory(topskyFolder);
@@ -124,25 +102,19 @@ class Program
         }
     }
 
-    static void UpdateRadarMode(string folderPath, string radarMode)
+    static void UpdateRadarMode(string folderPath, string modeCode)
     {
-        string settingFilePath = Path.Combine(folderPath, "Common Data", "Settings", "GeneralA.txt");
-        Dictionary<string, string> modeMapping = new Dictionary<string, string> {
-            { "0", "0" },
-            { "1", "2" }
-        };
-
+        string settingFilePath = Path.Combine(folderPath, SETTINGS_FOLDER, "GeneralA.txt");
         try
         {
             string[] lines = File.ReadAllLines(settingFilePath);
-
             using (StreamWriter writer = new StreamWriter(settingFilePath))
             {
                 foreach (string line in lines)
                 {
                     if (line.StartsWith("m_CorrelationMode:"))
                     {
-                        string mode = modeMapping.ContainsKey(radarMode) ? modeMapping[radarMode] : "0";
+                        string mode = RADAR_MODE_MAPPING.ContainsKey(modeCode) ? RADAR_MODE_MAPPING[modeCode] : "0";
                         writer.WriteLine($"m_CorrelationMode:{mode}");
                     }
                     else
@@ -186,15 +158,13 @@ class Program
 
             Console.WriteLine("请输入你的Hoppie CPDLC Code：");
             string cpdlcCode = Console.ReadLine();
-            UpdateCpdlcCode(scriptDirectory, cpdlcCode);
 
             Console.WriteLine("请输入你的默认雷达模式 (0-Easy Mode, 1-Mode S)：");
             string radarMode = Console.ReadLine();
-            UpdateRadarMode(scriptDirectory, radarMode);
 
             string server = GetServerName(serverCode);
             string rating = GetRating(ratingCode);
-            string RadarMode = GetRdmode(radarMode);
+            string RadarMode = GetRadarMode(radarMode);
 
             Console.WriteLine("\n请检查下面的信息：");
             Console.WriteLine("------------------------------");
@@ -229,6 +199,26 @@ class Program
             {
                 Console.WriteLine("\n！！未保存，请重新输入！！\n");
             }
+        }
+    }
+
+    static void AppendUserInfo(string filePath, string realName, string cid, string rating, string password, string server)
+    {
+        try
+        {
+            using (StreamWriter file = File.AppendText(filePath))
+            {
+                file.WriteLine($"LastSession\trealname\t{realName}");
+                file.WriteLine($"LastSession\tcertificate\t{cid}");
+                file.WriteLine($"LastSession\trating\t{rating}");
+                file.WriteLine($"LastSession\tpassword\t{password}");
+                file.WriteLine($"LastSession\tserver\t{server}");
+                file.WriteLine("LastSession\ttovatsim\t1");
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine($"An error occurred while updating {filePath}: {e.Message}");
         }
     }
 }
